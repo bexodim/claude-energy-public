@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Energy Tracker</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e2e8f0;
+    --muted: #8892a4;
+    --accent: #7c6af7;
+    --accent2: #4ade80;
+    --accent3: #f97316;
+    --accent4: #38bdf8;
+  }
+  body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif;
+          font-size: 14px; line-height: 1.5; padding: 24px; min-height: 100vh; }
+  h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+  .grid { display: grid; gap: 16px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid-4, .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+           padding: 20px; }
+  .metric-label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase;
+                   letter-spacing: 0.06em; margin-bottom: 6px; }
+  .metric-value { font-size: 1.8rem; font-weight: 700; }
+  .metric-sub { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+  .card-title { font-size: 0.9rem; font-weight: 600; color: var(--muted);
+                 text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  canvas { max-width: 100%; }
+  section { margin-top: 28px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { color: var(--muted); text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
+        font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .bar { height: 8px; border-radius: 4px; background: var(--accent); transition: width 0.3s; }
+  .comp-val { font-weight: 600; color: var(--accent2); }
+  .tag { display: inline-block; background: rgba(124,106,247,0.15); color: var(--accent);
+           border-radius: 4px; padding: 2px 7px; font-size: 0.75rem; font-weight: 500; }
+  .footer { margin-top: 32px; color: var(--muted); font-size: 0.75rem; text-align: center; }
+  .filters { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-btn { background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+                  padding: 5px 12px; color: var(--text); cursor: pointer; font-size: 0.8rem;
+                  transition: border-color 0.2s; }
+  .filter-btn:hover { border-color: var(--accent); }
+  .filter-btn.active { border-color: var(--accent); background: rgba(124,106,247,0.12); color: var(--accent); }
+</style>
+</head>
+<body>
+<h1>Claude Code Energy Tracker</h1>
+<p class="subtitle">Based on Simon Couch's methodology &middot; Generated 2026-06-21 14:07 &middot; All estimates are pessimistic (Opus-class rates)</p>
+
+<!-- Summary cards (daily averages) -->
+<section>
+<div class="grid grid-4">
+  <div class="card">
+    <div class="metric-label">Avg Daily Energy</div>
+    <div class="metric-value" id="avgDailyWh">—</div>
+    <div class="metric-sub" id="avgDailyEquiv">—</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Avg Daily Sessions</div>
+    <div class="metric-value" id="avgDailySessions">—</div>
+    <div class="metric-sub">across 25 active days</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Avg Daily Requests</div>
+    <div class="metric-value" id="avgDailyRequests">—</div>
+    <div class="metric-sub" id="avgRequestsPerSession">—</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Avg Daily Output Tokens</div>
+    <div class="metric-value" id="avgDailyOutputTok">—</div>
+    <div class="metric-sub" id="avgOutputTokPerSession">—</div>
+  </div>
+</div>
+</section>
+
+<!-- Last 5 Sessions -->
+<section>
+<div class="card">
+  <div class="card-title">Last 5 Sessions</div>
+  <table id="sessionsTable"></table>
+</div>
+</section>
+
+<!-- Charts row 1 -->
+<section>
+<div class="filters" id="rangeFilters">
+  <button class="filter-btn" data-gran="hourly">Hourly</button>
+  <button class="filter-btn active" data-gran="daily">Daily</button>
+  <button class="filter-btn" data-gran="weekly">Weekly</button>
+  <button class="filter-btn" data-gran="monthly">Monthly</button>
+</div>
+<div class="card">
+  <div class="card-title">Energy usage over time</div>
+  <div id="dailyBarScroll" style="overflow-x:auto;overflow-y:hidden">
+    <div style="position:relative;height:260px" id="dailyBarInner">
+      <canvas id="dailyBar"></canvas>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Charts row 2 -->
+<section>
+<div class="grid grid-3">
+  <div class="card">
+    <div class="card-title">By Model</div>
+    <canvas id="modelPie"></canvas>
+  </div>
+  <div class="card" style="grid-column: span 2;">
+    <div class="card-title">Daily Token Breakdown (stacked)</div>
+    <canvas id="tokenStack"></canvas>
+  </div>
+</div>
+</section>
+
+<!-- Comparisons -->
+<section>
+<div class="card">
+  <div class="card-title">Your Total Usage Is Equivalent To...</div>
+  <table id="compTable"></table>
+</div>
+</section>
+
+<!-- Projects -->
+<section>
+<div class="card">
+  <div class="card-title">By Project</div>
+  <table id="projTable"></table>
+</div>
+</section>
+
+<!-- Cumulative energy (half height) -->
+<section>
+<div class="card">
+  <div class="card-title">Cumulative Energy (Wh)</div>
+  <div style="position:relative;height:140px"><canvas id="cumulativeLine"></canvas></div>
+</div>
+</section>
+
+<!-- Totals (moved to bottom) -->
+<section>
+<div class="card-title" style="margin-left:4px">All-time totals</div>
+<div class="grid grid-4">
+  <div class="card">
+    <div class="metric-label">Total Energy</div>
+    <div class="metric-value" id="totalKwh">—</div>
+    <div class="metric-sub" id="avgWhSession">—</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Total Sessions</div>
+    <div class="metric-value" id="totalSessions">—</div>
+    <div class="metric-sub" id="sessionsPerDay">—</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Total Requests</div>
+    <div class="metric-value" id="totalRequests">—</div>
+  </div>
+  <div class="card">
+    <div class="metric-label">Total Output Tokens</div>
+    <div class="metric-value" id="totalOutputTok">—</div>
+  </div>
+</div>
+</section>
+
+<p class="footer">Rates: Input 390 Wh/MTok &middot; Output 1,950 Wh/MTok &middot; Cache-create 490 Wh/MTok &middot; Cache-read 39 Wh/MTok</p>
+
+<script>
+
+const DATA = {
+  totalWh: 4840.786619,
+  totalKwh: 4.840786619,
+  totalSessions: 46,
+  totalRequests: 730,
+  totalInputTokens: 116722,
+  totalOutputTokens: 957562,
+  avgWhPerSession: 105.2345,
+  days: ["2026-02-27", "2026-05-15", "2026-05-16", "2026-05-20", "2026-05-21", "2026-05-26", "2026-05-27", "2026-05-28", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-21"],
+  hours: ["2026-02-27T22", "2026-05-15T00", "2026-05-15T01", "2026-05-15T02", "2026-05-16T20", "2026-05-20T18", "2026-05-20T21", "2026-05-21T01", "2026-05-21T19", "2026-05-26T14", "2026-05-27T17", "2026-05-28T18", "2026-05-28T19", "2026-05-28T20", "2026-05-28T21", "2026-05-28T22", "2026-06-01T15", "2026-06-01T20", "2026-06-01T21", "2026-06-01T23", "2026-06-02T01", "2026-06-02T13", "2026-06-02T14", "2026-06-03T14", "2026-06-03T15", "2026-06-03T19", "2026-06-03T20", "2026-06-03T21", "2026-06-03T22", "2026-06-04T14", "2026-06-04T17", "2026-06-04T18", "2026-06-04T19", "2026-06-04T23", "2026-06-05T00", "2026-06-05T01", "2026-06-05T02", "2026-06-05T03", "2026-06-05T12", "2026-06-05T13", "2026-06-05T14", "2026-06-05T15", "2026-06-05T17", "2026-06-05T18", "2026-06-05T19", "2026-06-05T20", "2026-06-07T21", "2026-06-07T22", "2026-06-07T23", "2026-06-08T02", "2026-06-08T13", "2026-06-08T14", "2026-06-08T15", "2026-06-08T18", "2026-06-08T21", "2026-06-08T22", "2026-06-09T01", "2026-06-09T02", "2026-06-09T14", "2026-06-09T22", "2026-06-10T00", "2026-06-10T20", "2026-06-11T16", "2026-06-11T19", "2026-06-11T20", "2026-06-12T14", "2026-06-12T22", "2026-06-15T01", "2026-06-15T02", "2026-06-15T03", "2026-06-16T02", "2026-06-16T03", "2026-06-16T04", "2026-06-17T21", "2026-06-18T18", "2026-06-19T16", "2026-06-19T17", "2026-06-19T18", "2026-06-19T20", "2026-06-19T21", "2026-06-21T20", "2026-06-21T21"],
+  hourlyWh: [1.010561, 18.17075, 15.535991, 19.410632, 10.307412, 71.774342, 9.656083, 5.384102, 5.971836, 23.766699, 21.499616, 5.230861, 7.624661, 6.001581, 25.755903, 12.318182, 66.85328, 9.898445, 5.950007, 21.823337, 52.713423, 42.845761, 2.608318, 105.515046, 4.730653, 15.560469, 42.126478, 50.739397, 116.830032, 24.173542, 31.304328, 53.236181, 67.732564, 47.000242, 167.210124, 269.071964, 254.40279, 212.894805, 45.917663, 75.969508, 102.720184, 32.652854, 22.269334, 39.40397, 36.682189, 26.480047, 94.775277, 122.368496, 166.792248, 300.56802, 6.933821, 62.922304, 30.12357, 37.94298, 11.95997, 11.026179, 182.006312, 38.045501, 27.638551, 197.333863, 197.017213, 34.300983, 10.233898, 34.264501, 4.594109, 55.11025, 10.158474, 30.192097, 78.414492, 13.222732, 83.481792, 91.483534, 105.718709, 19.761435, 28.678921, 20.858199, 106.654111, 17.389934, 267.448708, 28.979265, 0.0, 5.650023],
+  dailyWh: [1.010561, 53.117373, 10.307412, 81.430425, 11.355938, 23.766699, 21.499616, 56.931188, 104.525069, 98.167502, 335.502075, 223.446857, 1285.675432, 383.936021, 461.476844, 445.024227, 231.318196, 49.092508, 65.268724, 121.829321, 280.684035, 19.761435, 28.678921, 441.330217, 5.650023],
+  dailyCumulative: [1.010561, 54.127934, 64.435346, 145.865771, 157.221709, 180.988408, 202.488024, 259.419212, 363.944281, 462.111783, 797.613858, 1021.060715, 2306.736147, 2690.672168, 3152.149012, 3597.173239, 3828.491435, 3877.583943, 3942.852667, 4064.681988, 4345.366023, 4365.127458, 4393.806379, 4835.136596, 4840.786619],
+  dailySessions: [1, 1, 1, 2, 2, 1, 1, 4, 3, 2, 4, 5, 9, 2, 5, 3, 2, 3, 2, 1, 2, 1, 1, 2, 1],
+  dailyRequests: [3, 8, 3, 15, 3, 3, 5, 16, 23, 24, 51, 41, 189, 72, 85, 37, 27, 6, 23, 15, 25, 3, 9, 42, 2],
+  dailyInput: [17, 36, 18, 79, 13, 17, 30, 91, 100, 144, 1984, 10638, 23754, 13781, 41977, 8592, 5712, 35, 102, 85, 138, 18, 19, 9336, 6],
+  dailyOutput: [782, 15883, 1894, 23716, 896, 6850, 5884, 12736, 26664, 29173, 76326, 39628, 222262, 71936, 65085, 55291, 56603, 4998, 13106, 41765, 54577, 6202, 3066, 121977, 262],
+  dailyCacheCreate: [34095, 34857, 8691, 40164, 15458, 15897, 10658, 35678, 52166, 31043, 211026, 204806, 728578, 256571, 339863, 333990, 148423, 70867, 27706, 27218, 167607, 10584, 28204, 201769, 9366],
+  dailyCacheRead: [21259, 129527, 60218, 396745, 52032, 67001, 122864, 373802, 690511, 666998, 2115125, 1068423, 12461468, 2886319, 3888646, 4364123, 1179164, 118152, 669136, 692759, 2360965, 63445, 227509, 2588903, 14037],
+  models: ["<synthetic>", "claude-haiku-4-5-20251001", "claude-opus-4-7"],
+  modelWh: [0.0, 1.010561, 4839.776058],
+  projects: ["gen-convo", "biocirv", "eatdrink", "claude-energy", "sales-inventory"],
+  projectWh: [4068.871466, 744.75013, 13.626242, 12.52822, 1.010561],
+  projectRequests: [601, 120, 2, 4, 3],
+  projectSessions: [31, 12, 1, 1, 1],
+  comparisons: {"Median AI chat query": 16135.9554, "Google search": 16135.9554, "Streaming 1 hr Netflix": 134.4663, "Dishwasher cycle": 2.6893, "Refrigerator (per day)": 3.5078, "Driving 1 mile (EV)": 16.136, "Driving to grocery store (5mi)": 0.7447},
+  comparisonsPerSession: {"Median AI chat query": 350.7816, "Google search": 350.7816, "Streaming 1 hr Netflix": 2.9232, "Dishwasher cycle": 0.0585, "Refrigerator (per day)": 0.0763, "Driving 1 mile (EV)": 0.3508, "Driving to grocery store (5mi)": 0.0162},
+  comparisonWh: {"Median AI chat query": 0.3, "Google search": 0.3, "Streaming 1 hr Netflix": 36, "Dishwasher cycle": 1800, "Refrigerator (per day)": 1380, "Driving 1 mile (EV)": 300, "Driving to grocery store (5mi)": 6500},
+  last5Sessions: [{"date": "2026-06-19", "project": "claude-energy", "duration_min": 2944.7, "energy_wh": 12.53, "requests": 4, "equiv_label": "Streaming 1 hr Netflix", "equiv_ratio": 0.348}, {"date": "2026-06-19", "project": "gen-convo", "duration_min": 260.5, "energy_wh": 434.45, "requests": 40, "equiv_label": "Driving 1 mile (EV)", "equiv_ratio": 1.4482}, {"date": "2026-06-18", "project": "gen-convo", "duration_min": 1.2, "energy_wh": 28.68, "requests": 9, "equiv_label": "Streaming 1 hr Netflix", "equiv_ratio": 0.7966}, {"date": "2026-06-17", "project": "gen-convo", "duration_min": 4.1, "energy_wh": 19.76, "requests": 3, "equiv_label": "Streaming 1 hr Netflix", "equiv_ratio": 0.5489}, {"date": "2026-06-15", "project": "gen-convo", "duration_min": 1614.2, "energy_wh": 393.74, "requests": 38, "equiv_label": "Driving 1 mile (EV)", "equiv_ratio": 1.3125}],
+  generatedAt: "2026-06-21 14:07:27",
+};
+
+
+// ── Helpers ──────────────────────────────────────────────────────
+function fmt(n, decimals=2) {
+  return n.toLocaleString(undefined, {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
+}
+function fmtInt(n) { return Math.round(n).toLocaleString(); }
+
+const PALETTE = ['#7c6af7','#4ade80','#f97316','#38bdf8','#f472b6','#facc15','#a78bfa','#34d399'];
+
+// ── Populate metric cards ─────────────────────────────────────────
+const numDays = DATA.days.length || 1;
+const avgReqPerSess = DATA.totalSessions > 0 ? DATA.totalRequests / DATA.totalSessions : 0;
+const avgOutTokPerSess = DATA.totalSessions > 0 ? DATA.totalOutputTokens / DATA.totalSessions : 0;
+const avgDailyWh = DATA.totalWh / numDays;
+const avgDailySessions = DATA.totalSessions / numDays;
+const avgDailyRequests = DATA.totalRequests / numDays;
+const avgDailyOutputTok = DATA.totalOutputTokens / numDays;
+
+function closestEquivLabel(wh) {
+  let bestLabel = '', bestDiff = Infinity, bestRatio = 0;
+  for (const [label, compWh] of Object.entries(DATA.comparisonWh)) {
+    if (!compWh) continue;
+    const ratio = wh / compWh;
+    const diff = Math.abs(Math.log(ratio));
+    if (diff < bestDiff) { bestDiff = diff; bestLabel = label; bestRatio = ratio; }
+  }
+  return bestLabel ? `${fmt(bestRatio, 2)}× ${bestLabel}` : '—';
+}
+
+document.getElementById('avgDailyWh').textContent = fmt(avgDailyWh, 2) + ' Wh';
+document.getElementById('avgDailyEquiv').textContent = '≈ ' + closestEquivLabel(avgDailyWh);
+document.getElementById('avgDailySessions').textContent = fmt(avgDailySessions, 1);
+document.getElementById('avgDailyRequests').textContent = fmt(avgDailyRequests, 1);
+document.getElementById('avgRequestsPerSession').textContent = fmt(avgReqPerSess, 1) + ' avg / session';
+document.getElementById('avgDailyOutputTok').textContent = fmtInt(Math.round(avgDailyOutputTok));
+document.getElementById('avgOutputTokPerSession').textContent = fmtInt(Math.round(avgOutTokPerSess)) + ' avg / session';
+
+document.getElementById('totalKwh').textContent = fmtInt(Math.round(DATA.totalWh)) + ' Wh';
+document.getElementById('avgWhSession').textContent = fmt(DATA.avgWhPerSession, 2) + ' Wh avg / session';
+document.getElementById('totalSessions').textContent = fmtInt(DATA.totalSessions);
+document.getElementById('sessionsPerDay').textContent = fmt(DATA.totalSessions / numDays, 1) + ' sessions / day';
+document.getElementById('totalRequests').textContent = fmtInt(DATA.totalRequests);
+document.getElementById('totalOutputTok').textContent = fmtInt(DATA.totalOutputTokens);
+
+// ── Charts ────────────────────────────────────────────────────────
+const chartDefaults = {
+  animation: false,
+  plugins: { legend: { labels: { color: '#8892a4', boxWidth: 12 } } },
+  scales: {
+    x: { ticks: { color: '#8892a4', maxTicksLimit: 10 } , grid: { color: '#2a2d3a' } },
+    y: { ticks: { color: '#8892a4' }, grid: { color: '#2a2d3a' } },
+  },
+};
+
+let dailyChart, cumulativeChart, tokenChart;
+
+function aggregateWeekly(daily) {
+  const weeks = {};
+  const weekOrder = [];
+  daily.days.forEach((day, i) => {
+    const d = new Date(day + 'T12:00:00Z');
+    const dow = d.getUTCDay();
+    const offset = dow === 0 ? -6 : 1 - dow;
+    const monday = new Date(d);
+    monday.setUTCDate(d.getUTCDate() + offset);
+    const wk = monday.toISOString().slice(0, 10);
+    if (!weeks[wk]) { weeks[wk] = {wh:0,inp:0,out:0,cc:0,cr:0}; weekOrder.push(wk); }
+    weeks[wk].wh  += daily.wh[i];
+    weeks[wk].inp += daily.inp[i];
+    weeks[wk].out += daily.out[i];
+    weeks[wk].cc  += daily.cc[i];
+    weeks[wk].cr  += daily.cr[i];
+  });
+  let running = 0;
+  const cum = weekOrder.map(wk => { running += weeks[wk].wh; return running; });
+  const labels = weekOrder.map(wk => {
+    const d = new Date(wk + 'T12:00:00Z');
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'});
+  });
+  return {
+    days: labels, wh: weekOrder.map(w => weeks[w].wh), cum,
+    inp: weekOrder.map(w => weeks[w].inp), out: weekOrder.map(w => weeks[w].out),
+    cc:  weekOrder.map(w => weeks[w].cc),  cr:  weekOrder.map(w => weeks[w].cr),
+  };
+}
+
+function aggregateMonthly(days, wh) {
+  const months = {}; const order = [];
+  days.forEach((day, i) => {
+    const m = day.slice(0, 7);
+    if (!(m in months)) { months[m] = 0; order.push(m); }
+    months[m] += wh[i];
+  });
+  const labels = order.map(m => {
+    const d = new Date(m + '-01T12:00:00Z');
+    return d.toLocaleDateString('en-US', {month:'short', year:'numeric', timeZone:'UTC'});
+  });
+  return { labels, wh: order.map(m => months[m]) };
+}
+
+function aggregateWeeklyWh(days, wh) {
+  const weeks = {}; const order = [];
+  days.forEach((day, i) => {
+    const d = new Date(day + 'T12:00:00Z');
+    const dow = d.getUTCDay();
+    const offset = dow === 0 ? -6 : 1 - dow;
+    const monday = new Date(d);
+    monday.setUTCDate(d.getUTCDate() + offset);
+    const wk = monday.toISOString().slice(0, 10);
+    if (!(wk in weeks)) { weeks[wk] = 0; order.push(wk); }
+    weeks[wk] += wh[i];
+  });
+  const labels = order.map(wk => {
+    const d = new Date(wk + 'T12:00:00Z');
+    return 'Wk of ' + d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'});
+  });
+  return { labels, wh: order.map(w => weeks[w]) };
+}
+
+function granData(gran) {
+  if (gran === 'hourly') {
+    const labels = DATA.hours.map(h => {
+      const d = new Date(h + ':00:00Z');
+      return d.toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric'});
+    });
+    return { labels, wh: DATA.hourlyWh };
+  }
+  if (gran === 'daily') {
+    const labels = DATA.days.map(day => {
+      const d = new Date(day + 'T12:00:00Z');
+      return d.toLocaleDateString('en-US', {month:'short', day:'numeric', timeZone:'UTC'});
+    });
+    return { labels, wh: DATA.dailyWh };
+  }
+  if (gran === 'weekly') return aggregateWeeklyWh(DATA.days, DATA.dailyWh);
+  if (gran === 'monthly') return aggregateMonthly(DATA.days, DATA.dailyWh);
+}
+
+function sliceData(range) {
+  const n = range === 'all' ? DATA.days.length : parseInt(range);
+  const daily = {
+    days: DATA.days.slice(-n),
+    wh:   DATA.dailyWh.slice(-n),
+    cum:  DATA.dailyCumulative.slice(-n),
+    inp:  DATA.dailyInput.slice(-n),
+    out:  DATA.dailyOutput.slice(-n),
+    cc:   DATA.dailyCacheCreate.slice(-n),
+    cr:   DATA.dailyCacheRead.slice(-n),
+  };
+  return (range === 'all' || range === '30') ? aggregateWeekly(daily) : daily;
+}
+
+const VISIBLE_BARS = 7;
+
+function buildDailyChart(gran) {
+  const d = granData(gran);
+  const scroll = document.getElementById('dailyBarScroll');
+  const inner  = document.getElementById('dailyBarInner');
+  const containerW = scroll.clientWidth;
+  const perBar = containerW / VISIBLE_BARS;
+  const needed = d.labels.length * perBar;
+  inner.style.width = Math.max(containerW, needed) + 'px';
+
+  const ctx1 = document.getElementById('dailyBar').getContext('2d');
+  if (dailyChart) dailyChart.destroy();
+
+  function closestEquiv(wh) {
+    let bestLabel = '', bestRatio = Infinity;
+    for (const [label, compWh] of Object.entries(DATA.comparisonWh)) {
+      const ratio = wh / compWh;
+      if (Math.abs(ratio - 1) < Math.abs(bestRatio - 1)) { bestRatio = ratio; bestLabel = label; }
+    }
+    return bestRatio < 0.01 ? '' : `${fmt(bestRatio, 2)}× ${bestLabel}`;
+  }
+  const barLabelPlugin = {
+    id: 'barLabel',
+    afterDatasetsDraw(chart) {
+      const {ctx: c, data} = chart;
+      c.save();
+      c.font = '10px system-ui, sans-serif';
+      c.fillStyle = '#8892a4';
+      c.textAlign = 'center';
+      c.textBaseline = 'bottom';
+      data.datasets[0].data.forEach((val, i) => {
+        const meta = chart.getDatasetMeta(0);
+        const bar = meta.data[i];
+        const label = closestEquiv(val);
+        if (label) c.fillText(label, bar.x, bar.y - 3);
+      });
+      c.restore();
+    }
+  };
+
+  dailyChart = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: d.labels,
+      datasets: [{ label: 'Wh', data: d.wh, backgroundColor: '#7c6af7', borderRadius: 3 }]
+    },
+    options: {
+      ...chartDefaults,
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      layout: { padding: { top: 28 } },
+    },
+    plugins: [barLabelPlugin],
+  });
+
+  // Scroll to the right so latest values are visible first
+  requestAnimationFrame(() => { scroll.scrollLeft = scroll.scrollWidth; });
+}
+
+function buildOtherCharts() {
+  const d = sliceData('all');
+  const ctx2 = document.getElementById('cumulativeLine').getContext('2d');
+  const ctx3 = document.getElementById('tokenStack').getContext('2d');
+
+  if (cumulativeChart) cumulativeChart.destroy();
+  if (tokenChart) tokenChart.destroy();
+
+  cumulativeChart = new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: d.days,
+      datasets: [{
+        label: 'Cumulative Wh', data: d.cum,
+        borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,0.08)',
+        fill: true, tension: 0.3, pointRadius: 2,
+      }]
+    },
+    options: { ...chartDefaults, responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } },
+  });
+
+  tokenChart = new Chart(ctx3, {
+    type: 'bar',
+    data: {
+      labels: d.days,
+      datasets: [
+        { label: 'Input',        data: d.inp, backgroundColor: '#7c6af7', stack: 'tok' },
+        { label: 'Output',       data: d.out, backgroundColor: '#f97316', stack: 'tok' },
+        { label: 'Cache-create', data: d.cc,  backgroundColor: '#38bdf8', stack: 'tok' },
+        { label: 'Cache-read',   data: d.cr,  backgroundColor: '#4ade80', stack: 'tok' },
+      ]
+    },
+    options: { ...chartDefaults, scales: {
+      x: { stacked: true, ticks: { color: '#8892a4', maxTicksLimit: 10 }, grid: { color: '#2a2d3a' } },
+      y: { stacked: true, ticks: { color: '#8892a4' }, grid: { color: '#2a2d3a' } },
+    } },
+  });
+}
+
+buildOtherCharts();
+buildDailyChart('daily');
+
+// Granularity filter buttons (Hourly / Daily / Weekly / Monthly)
+document.getElementById('rangeFilters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('#rangeFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildDailyChart(btn.dataset.gran);
+});
+
+window.addEventListener('resize', () => {
+  const active = document.querySelector('#rangeFilters .filter-btn.active');
+  if (active) buildDailyChart(active.dataset.gran);
+});
+
+// Model pie
+new Chart(document.getElementById('modelPie').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: DATA.models,
+    datasets: [{ data: DATA.modelWh, backgroundColor: PALETTE, borderWidth: 1, borderColor: '#1a1d27' }]
+  },
+  options: {
+    animation: false,
+    plugins: { legend: { position: 'bottom', labels: { color: '#8892a4', boxWidth: 12, font: { size: 11 } } } },
+  },
+});
+
+// Last 5 sessions table
+(function() {
+  const t = document.getElementById('sessionsTable');
+  let html = '<thead><tr><th>Date</th><th>Project</th><th>Time spent</th><th>Energy (Wh)</th><th>Equivalent use</th><th>Requests</th></tr></thead><tbody>';
+  DATA.last5Sessions.forEach(s => {
+    let dur = '—';
+    if (s.duration_min >= 60) dur = fmt(s.duration_min / 60, 1) + ' hr';
+    else if (s.duration_min >= 1) dur = fmt(s.duration_min, 0) + ' min';
+    else if (s.duration_min > 0) dur = '< 1 min';
+    const equivStr = `${fmt(s.equiv_ratio, 2)}× ${s.equiv_label}`;
+    html += `<tr>
+      <td>${s.date}</td>
+      <td><span class="tag">${s.project}</span></td>
+      <td>${dur}</td>
+      <td class="comp-val">${fmt(s.energy_wh, 2)}</td>
+      <td class="comp-val" style="font-size:12px;color:var(--muted)">${equivStr}</td>
+      <td>${fmtInt(s.requests)}</td>
+    </tr>`;
+  });
+  html += '</tbody>';
+  t.innerHTML = html;
+})();
+
+// Comparisons table
+(function() {
+  const t = document.getElementById('compTable');
+  let html = '<thead><tr><th>Activity</th><th>Energy (Wh)</th><th>Per day (avg)</th><th>Per week (avg)</th></tr></thead><tbody>';
+  for (const [label, val] of Object.entries(DATA.comparisons)) {
+    const compWh = DATA.comparisonWh[label] || 0;
+    const perDay  = compWh ? avgDailyWh / compWh : 0;
+    const perWeek = perDay * 7;
+    const fmtMul = v => {
+      if (v >= 100) return fmtInt(Math.round(v / 10) * 10);
+      if (v >= 10)  return fmtInt(v);
+      if (v >= 1)   return fmt(v, 1);
+      return fmt(v, 2);
+    };
+    html += `<tr>
+      <td>${label}</td>
+      <td>${fmt(compWh, 2)}</td>
+      <td class="comp-val">${fmtMul(perDay)}×</td>
+      <td class="comp-val">${fmtMul(perWeek)}×</td>
+    </tr>`;
+  }
+  html += '</tbody>';
+  t.innerHTML = html;
+})();
+
+// Projects table
+(function() {
+  const t = document.getElementById('projTable');
+  const maxWh = Math.max(...DATA.projectWh);
+  let html = '<thead><tr><th>Project</th><th>Sessions</th><th>Requests</th><th>Energy (Wh)</th><th style="width:30%"></th></tr></thead><tbody>';
+  DATA.projects.forEach((p, i) => {
+    const pct = maxWh > 0 ? (DATA.projectWh[i] / maxWh * 100).toFixed(1) : 0;
+    html += `<tr>
+      <td><span class="tag">${p}</span></td>
+      <td>${fmtInt(DATA.projectSessions[i])}</td>
+      <td>${fmtInt(DATA.projectRequests[i])}</td>
+      <td>${fmt(DATA.projectWh[i], 4)}</td>
+      <td><div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div></td>
+    </tr>`;
+  });
+  html += '</tbody>';
+  t.innerHTML = html;
+})();
+</script>
+</body>
+</html>
