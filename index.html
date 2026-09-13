@@ -182,6 +182,14 @@
 </div>
 </section>
 
+<!-- Usage intensity, on the same timeline as the cumulative chart -->
+<section>
+<div class="card">
+  <div class="card-title">Avg Energy per Session (Wh)</div>
+  <div style="position:relative;height:140px"><canvas id="perSessionLine"></canvas></div>
+</div>
+</section>
+
 <p class="footer" id="ratesFooter">—</p>
 
 <script>
@@ -202,7 +210,7 @@ const chartDefaults = {
 };
 
 let DATA = null;
-let dailyChart, cumulativeChart, tokenChart;
+let dailyChart, cumulativeChart, tokenChart, perSessionChart;
 
 fetch('data.json')
   .then(r => {
@@ -361,12 +369,13 @@ function aggregateWeekly(daily) {
     const monday = new Date(d);
     monday.setUTCDate(d.getUTCDate() + offset);
     const wk = monday.toISOString().slice(0, 10);
-    if (!weeks[wk]) { weeks[wk] = {wh:0,inp:0,out:0,cc:0,cr:0}; weekOrder.push(wk); }
-    weeks[wk].wh  += daily.wh[i];
-    weeks[wk].inp += daily.inp[i];
-    weeks[wk].out += daily.out[i];
-    weeks[wk].cc  += daily.cc[i];
-    weeks[wk].cr  += daily.cr[i];
+    if (!weeks[wk]) { weeks[wk] = {wh:0,inp:0,out:0,cc:0,cr:0,sess:0}; weekOrder.push(wk); }
+    weeks[wk].wh   += daily.wh[i];
+    weeks[wk].inp  += daily.inp[i];
+    weeks[wk].out  += daily.out[i];
+    weeks[wk].cc   += daily.cc[i];
+    weeks[wk].cr   += daily.cr[i];
+    weeks[wk].sess += daily.sess[i];
   });
   let running = 0;
   const cum = weekOrder.map(wk => { running += weeks[wk].wh; return running; });
@@ -378,6 +387,7 @@ function aggregateWeekly(daily) {
     days: labels, wh: weekOrder.map(w => weeks[w].wh), cum,
     inp: weekOrder.map(w => weeks[w].inp), out: weekOrder.map(w => weeks[w].out),
     cc:  weekOrder.map(w => weeks[w].cc),  cr:  weekOrder.map(w => weeks[w].cr),
+    sess: weekOrder.map(w => weeks[w].sess),
   };
 }
 
@@ -443,6 +453,7 @@ function sliceData(range) {
     out:  DATA.dailyOutput.slice(-n),
     cc:   DATA.dailyCacheCreate.slice(-n),
     cr:   DATA.dailyCacheRead.slice(-n),
+    sess: DATA.dailySessions.slice(-n),
   };
   return (range === 'all' || range === '30') ? aggregateWeekly(daily) : daily;
 }
@@ -511,9 +522,11 @@ function buildOtherCharts() {
   const d = sliceData('all');
   const ctx2 = document.getElementById('cumulativeLine').getContext('2d');
   const ctx3 = document.getElementById('tokenStack').getContext('2d');
+  const ctx4 = document.getElementById('perSessionLine').getContext('2d');
 
   if (cumulativeChart) cumulativeChart.destroy();
   if (tokenChart) tokenChart.destroy();
+  if (perSessionChart) perSessionChart.destroy();
 
   cumulativeChart = new Chart(ctx2, {
     type: 'line',
@@ -522,6 +535,22 @@ function buildOtherCharts() {
       datasets: [{
         label: 'Cumulative Wh', data: d.cum,
         borderColor: '#4ade80', backgroundColor: 'rgba(74,222,128,0.08)',
+        fill: true, tension: 0.3, pointRadius: 2,
+      }]
+    },
+    options: { ...chartDefaults, responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } },
+  });
+
+  // Bucket totals, not an average of averages: sum(Wh) / sum(sessions).
+  const perSession = d.wh.map((wh, i) => d.sess[i] > 0 ? wh / d.sess[i] : 0);
+
+  perSessionChart = new Chart(ctx4, {
+    type: 'line',
+    data: {
+      labels: d.days,
+      datasets: [{
+        label: 'Wh / session', data: perSession,
+        borderColor: '#7c6af7', backgroundColor: 'rgba(124,106,247,0.08)',
         fill: true, tension: 0.3, pointRadius: 2,
       }]
     },
