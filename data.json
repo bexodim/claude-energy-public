@@ -1,11 +1,11 @@
 {
-  "totalWh": 28217.864389,
-  "totalKwh": 28.217864389,
+  "totalWh": 28235.158933,
+  "totalKwh": 28.235158933,
   "totalSessions": 103,
-  "totalRequests": 3199,
-  "totalInputTokens": 14164,
-  "totalOutputTokens": 3823551,
-  "avgWhPerSession": 273.9598,
+  "totalRequests": 3202,
+  "totalInputTokens": 14170,
+  "totalOutputTokens": 3826602,
+  "avgWhPerSession": 274.1278,
   "activeDays": 36,
   "days": [
     "2026-07-12",
@@ -419,7 +419,7 @@
     134.937287,
     493.21494,
     612.172297,
-    69.623854
+    86.918398
   ],
   "dailyWh": [
     9.149366,
@@ -457,7 +457,7 @@
     108.368129,
     1867.35208,
     1441.398751,
-    1319.762643
+    1337.057187
   ],
   "dailyCumulative": [
     9.149366,
@@ -495,7 +495,7 @@
     23589.350915,
     25456.702995,
     26898.101746,
-    28217.864389
+    28235.158933
   ],
   "dailySessions": [
     1,
@@ -571,7 +571,7 @@
     17,
     355,
     92,
-    153
+    156
   ],
   "dailyInput": [
     12,
@@ -609,7 +609,7 @@
     34,
     710,
     184,
-    306
+    312
   ],
   "dailyOutput": [
     634,
@@ -647,7 +647,7 @@
     26187,
     149554,
     84348,
-    201699
+    204750
   ],
   "dailyCacheCreate": [
     13496,
@@ -685,7 +685,7 @@
     52595,
     1250419,
     1033513,
-    494337
+    495606
   ],
   "dailyCacheRead": [
     33214,
@@ -723,7 +723,7 @@
     808171,
     24685630,
     19754539,
-    17541157
+    17816053
   ],
   "models": [
     "<synthetic>",
@@ -734,7 +734,7 @@
   "modelWh": [
     0.0,
     56.432799,
-    17834.88785,
+    17852.182394,
     10326.54374
   ],
   "projects": [
@@ -750,25 +750,25 @@
     "Documents-obsidian-life"
   ],
   "projectWh": [
-    8947.309665,
+    8955.324415,
     7610.772349,
     5887.337894,
     1916.122583,
     1670.269763,
     1364.869591,
-    312.757005,
+    322.036799,
     263.916879,
     165.616892,
     78.891768
   ],
   "projectRequests": [
-    967,
+    968,
     1035,
     482,
     255,
     197,
     91,
-    65,
+    67,
     56,
     30,
     21
@@ -786,22 +786,22 @@
     3
   ],
   "comparisons": {
-    "Median AI chat query": 94059.548,
-    "Google search": 94059.548,
-    "Streaming 1 hr Netflix": 783.8296,
-    "Dishwasher cycle": 15.6766,
-    "Refrigerator (per day)": 20.4477,
-    "Driving 1 mile (EV)": 94.0595,
-    "Driving to grocery store (5mi)": 4.3412
+    "Median AI chat query": 94117.1964,
+    "Google search": 94117.1964,
+    "Streaming 1 hr Netflix": 784.31,
+    "Dishwasher cycle": 15.6862,
+    "Refrigerator (per day)": 20.4603,
+    "Driving 1 mile (EV)": 94.1172,
+    "Driving to grocery store (5mi)": 4.3439
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 913.1995,
-    "Google search": 913.1995,
-    "Streaming 1 hr Netflix": 7.61,
-    "Dishwasher cycle": 0.1522,
-    "Refrigerator (per day)": 0.1985,
-    "Driving 1 mile (EV)": 0.9132,
-    "Driving to grocery store (5mi)": 0.0421
+    "Median AI chat query": 913.7592,
+    "Google search": 913.7592,
+    "Streaming 1 hr Netflix": 7.6147,
+    "Dishwasher cycle": 0.1523,
+    "Refrigerator (per day)": 0.1986,
+    "Driving 1 mile (EV)": 0.9138,
+    "Driving to grocery store (5mi)": 0.0422
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -816,20 +816,20 @@
     {
       "date": "2026-09-13",
       "project": "claude-energy",
-      "duration_min": 29.8,
-      "energy_wh": 177.91,
-      "requests": 41,
+      "duration_min": 31.9,
+      "energy_wh": 187.19,
+      "requests": 43,
       "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.593
+      "equiv_ratio": 0.624
     },
     {
       "date": "2026-09-13",
       "project": "gen-convo",
-      "duration_min": 184.5,
-      "energy_wh": 242.72,
-      "requests": 30,
+      "duration_min": 190.0,
+      "energy_wh": 250.73,
+      "requests": 31,
       "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.8091
+      "equiv_ratio": 0.8358
     },
     {
       "date": "2026-09-13",
@@ -865,5 +865,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-09-13 00:06:51"
+  "generatedAt": "2026-09-13 00:09:06"
 }
