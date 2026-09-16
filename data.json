@@ -1,11 +1,11 @@
 {
-  "totalWh": 28263.926078,
-  "totalKwh": 28.263926078,
-  "totalSessions": 101,
-  "totalRequests": 3200,
-  "totalInputTokens": 12811,
-  "totalOutputTokens": 3748473,
-  "avgWhPerSession": 279.8409,
+  "totalWh": 28287.256458,
+  "totalKwh": 28.287256458,
+  "totalSessions": 102,
+  "totalRequests": 3201,
+  "totalInputTokens": 12813,
+  "totalOutputTokens": 3750608,
+  "avgWhPerSession": 277.326,
   "activeDays": 36,
   "days": [
     "2026-07-12",
@@ -227,7 +227,8 @@
     "2026-09-16T03",
     "2026-09-16T04",
     "2026-09-16T05",
-    "2026-09-16T14"
+    "2026-09-16T14",
+    "2026-09-16T17"
   ],
   "hourlyWh": [
     9.149366,
@@ -411,7 +412,8 @@
     117.921283,
     84.494521,
     0.0,
-    30.015002
+    30.015002,
+    23.33038
   ],
   "dailyWh": [
     9.149366,
@@ -449,7 +451,7 @@
     1441.398751,
     1907.690669,
     246.868427,
-    528.566064
+    551.896444
   ],
   "dailyCumulative": [
     9.149366,
@@ -487,7 +489,7 @@
     25580.800918,
     27488.491587,
     27735.360014,
-    28263.926078
+    28287.256458
   ],
   "dailySessions": [
     1,
@@ -525,7 +527,7 @@
     1,
     6,
     3,
-    4
+    5
   ],
   "dailyRequests": [
     2,
@@ -563,7 +565,7 @@
     92,
     209,
     31,
-    81
+    82
   ],
   "dailyInput": [
     12,
@@ -601,7 +603,7 @@
     184,
     418,
     62,
-    160
+    162
   ],
   "dailyOutput": [
     634,
@@ -639,7 +641,7 @@
     84348,
     255542,
     50124,
-    112341
+    114476
   ],
   "dailyCacheCreate": [
     13496,
@@ -677,7 +679,7 @@
     1033513,
     665096,
     170534,
-    169572
+    208687
   ],
   "dailyCacheRead": [
     33214,
@@ -726,7 +728,7 @@
   "modelWh": [
     0.0,
     56.432799,
-    17880.949539,
+    17904.279919,
     10326.54374
   ],
   "projects": [
@@ -742,7 +744,7 @@
     "Documents-obsidian-life"
   ],
   "projectWh": [
-    8981.08167,
+    9004.41205,
     7813.303394,
     5436.108902,
     2023.922074,
@@ -754,7 +756,7 @@
     78.891768
   ],
   "projectRequests": [
-    973,
+    974,
     1049,
     438,
     252,
@@ -766,7 +768,7 @@
     21
   ],
   "projectSessions": [
-    39,
+    40,
     26,
     11,
     10,
@@ -778,22 +780,22 @@
     3
   ],
   "comparisons": {
-    "Median AI chat query": 94213.0869,
-    "Google search": 94213.0869,
-    "Streaming 1 hr Netflix": 785.1091,
-    "Dishwasher cycle": 15.7022,
-    "Refrigerator (per day)": 20.4811,
-    "Driving 1 mile (EV)": 94.2131,
-    "Driving to grocery store (5mi)": 4.3483
+    "Median AI chat query": 94290.8549,
+    "Google search": 94290.8549,
+    "Streaming 1 hr Netflix": 785.7571,
+    "Dishwasher cycle": 15.7151,
+    "Refrigerator (per day)": 20.498,
+    "Driving 1 mile (EV)": 94.2909,
+    "Driving to grocery store (5mi)": 4.3519
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 932.8028,
-    "Google search": 932.8028,
-    "Streaming 1 hr Netflix": 7.7734,
-    "Dishwasher cycle": 0.1555,
-    "Refrigerator (per day)": 0.2028,
-    "Driving 1 mile (EV)": 0.9328,
-    "Driving to grocery store (5mi)": 0.0431
+    "Median AI chat query": 924.4201,
+    "Google search": 924.4201,
+    "Streaming 1 hr Netflix": 7.7035,
+    "Dishwasher cycle": 0.1541,
+    "Refrigerator (per day)": 0.201,
+    "Driving 1 mile (EV)": 0.9244,
+    "Driving to grocery store (5mi)": 0.0427
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -805,6 +807,15 @@
     "Driving to grocery store (5mi)": 6500
   },
   "last5Sessions": [
+    {
+      "date": "2026-09-16",
+      "project": "gen-convo",
+      "duration_min": 0.0,
+      "energy_wh": 23.33,
+      "requests": 1,
+      "equiv_label": "Streaming 1 hr Netflix",
+      "equiv_ratio": 0.6481
+    },
     {
       "date": "2026-09-16",
       "project": "ai-trans",
@@ -840,15 +851,6 @@
       "requests": 55,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 1.019
-    },
-    {
-      "date": "2026-09-14",
-      "project": "claude-energy",
-      "duration_min": 2.5,
-      "energy_wh": 42.64,
-      "requests": 9,
-      "equiv_label": "Streaming 1 hr Netflix",
-      "equiv_ratio": 1.1844
     }
   ],
   "rates": {
@@ -857,5 +859,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-09-16 13:55:56"
+  "generatedAt": "2026-09-16 13:56:37"
 }
