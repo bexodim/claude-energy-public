@@ -1,12 +1,12 @@
 {
-  "totalWh": 31090.819356,
-  "totalKwh": 31.090819356,
+  "totalWh": 31347.734578,
+  "totalKwh": 31.347734578,
   "totalSessions": 98,
-  "totalRequests": 3279,
-  "totalInputTokens": 6534,
-  "totalOutputTokens": 4085401,
-  "avgWhPerSession": 317.2533,
-  "activeDays": 36,
+  "totalRequests": 3306,
+  "totalInputTokens": 6588,
+  "totalOutputTokens": 4116986,
+  "avgWhPerSession": 319.8748,
+  "activeDays": 37,
   "days": [
     "2026-08-11",
     "2026-08-14",
@@ -43,7 +43,8 @@
     "2026-09-17",
     "2026-09-18",
     "2026-09-19",
-    "2026-09-21"
+    "2026-09-21",
+    "2026-09-22"
   ],
   "hours": [
     "2026-08-11T14",
@@ -238,7 +239,8 @@
     "2026-09-21T20",
     "2026-09-21T21",
     "2026-09-21T22",
-    "2026-09-21T23"
+    "2026-09-21T23",
+    "2026-09-22T00"
   ],
   "hourlyWh": [
     17.511699,
@@ -433,7 +435,8 @@
     38.052944,
     165.899093,
     116.58206,
-    9.576923
+    93.671856,
+    172.820289
   ],
   "dailyWh": [
     17.511699,
@@ -471,7 +474,8 @@
     2618.173468,
     3614.673569,
     1083.387356,
-    404.021795
+    488.116728,
+    172.820289
   ],
   "dailyCumulative": [
     17.511699,
@@ -509,7 +513,8 @@
     25988.736636,
     29603.410205,
     30686.797561,
-    31090.819356
+    31174.914289,
+    31347.734578
   ],
   "dailySessions": [
     1,
@@ -547,7 +552,8 @@
     7,
     5,
     3,
-    2
+    2,
+    1
   ],
   "dailyRequests": [
     5,
@@ -585,7 +591,8 @@
     246,
     246,
     94,
-    50
+    60,
+    17
   ],
   "dailyInput": [
     10,
@@ -623,7 +630,8 @@
     488,
     490,
     188,
-    100
+    120,
+    34
   ],
   "dailyOutput": [
     4071,
@@ -661,7 +669,8 @@
     336634,
     448762,
     111790,
-    83419
+    94112,
+    20892
   ],
   "dailyCacheCreate": [
     10794,
@@ -699,7 +708,8 @@
     1376755,
     1599689,
     577730,
-    152501
+    165618,
+    32151
   ],
   "dailyCacheRead": [
     109751,
@@ -737,7 +747,8 @@
     32998382,
     50142281,
     14929124,
-    4271545
+    5728172,
+    2982401
   ],
   "models": [
     "<synthetic>",
@@ -746,7 +757,7 @@
   ],
   "modelWh": [
     0.0,
-    22397.153682,
+    22654.068904,
     8693.665674
   ],
   "projects": [
@@ -766,7 +777,7 @@
     8953.924138,
     5436.108902,
     2413.071853,
-    1694.570754,
+    1951.485976,
     1003.830068,
     749.916327,
     657.446681,
@@ -778,7 +789,7 @@
     938,
     438,
     201,
-    152,
+    179,
     134,
     72,
     103,
@@ -798,22 +809,22 @@
     3
   ],
   "comparisons": {
-    "Median AI chat query": 103636.0645,
-    "Google search": 103636.0645,
-    "Streaming 1 hr Netflix": 863.6339,
-    "Dishwasher cycle": 17.2727,
-    "Refrigerator (per day)": 22.5296,
-    "Driving 1 mile (EV)": 103.6361,
-    "Driving to grocery store (5mi)": 4.7832
+    "Median AI chat query": 104492.4486,
+    "Google search": 104492.4486,
+    "Streaming 1 hr Netflix": 870.7704,
+    "Dishwasher cycle": 17.4154,
+    "Refrigerator (per day)": 22.7157,
+    "Driving 1 mile (EV)": 104.4924,
+    "Driving to grocery store (5mi)": 4.8227
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 1057.5109,
-    "Google search": 1057.5109,
-    "Streaming 1 hr Netflix": 8.8126,
-    "Dishwasher cycle": 0.1763,
-    "Refrigerator (per day)": 0.2299,
-    "Driving 1 mile (EV)": 1.0575,
-    "Driving to grocery store (5mi)": 0.0488
+    "Median AI chat query": 1066.2495,
+    "Google search": 1066.2495,
+    "Streaming 1 hr Netflix": 8.8854,
+    "Dishwasher cycle": 0.1777,
+    "Refrigerator (per day)": 0.2318,
+    "Driving 1 mile (EV)": 1.0662,
+    "Driving to grocery store (5mi)": 0.0492
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -828,11 +839,11 @@
     {
       "date": "2026-09-21",
       "project": "htgaa",
-      "duration_min": 150.3,
-      "energy_wh": 330.11,
-      "requests": 46,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 1.1004
+      "duration_min": 210.5,
+      "energy_wh": 587.03,
+      "requests": 73,
+      "equiv_label": "Refrigerator (per day)",
+      "equiv_ratio": 0.4254
     },
     {
       "date": "2026-09-14",
@@ -877,5 +888,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-09-21 19:42:07"
+  "generatedAt": "2026-09-21 20:23:03"
 }
