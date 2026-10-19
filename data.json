@@ -1,11 +1,11 @@
 {
-  "totalWh": 14378.671122,
-  "totalKwh": 14.378671122,
-  "totalSessions": 63,
-  "totalRequests": 1653,
-  "totalInputTokens": 3290,
-  "totalOutputTokens": 2276999,
-  "avgWhPerSession": 228.2329,
+  "totalWh": 14501.242312,
+  "totalKwh": 14.501242312,
+  "totalSessions": 64,
+  "totalRequests": 1673,
+  "totalInputTokens": 3330,
+  "totalOutputTokens": 2298935,
+  "avgWhPerSession": 226.5819,
   "activeDays": 34,
   "days": [
     "2026-09-04",
@@ -169,7 +169,9 @@
     "2026-10-15T21",
     "2026-10-18T03",
     "2026-10-19T14",
-    "2026-10-19T15"
+    "2026-10-19T15",
+    "2026-10-19T18",
+    "2026-10-19T19"
   ],
   "hourlyWh": [
     83.548575,
@@ -297,7 +299,9 @@
     130.525991,
     14.652776,
     15.718196,
-    255.312465
+    255.312465,
+    87.378666,
+    35.192524
   ],
   "dailyWh": [
     294.13217,
@@ -333,7 +337,7 @@
     105.753109,
     532.675535,
     14.652776,
-    271.030661
+    393.601851
   ],
   "dailyCumulative": [
     294.13217,
@@ -369,7 +373,7 @@
     13560.31215,
     14092.987685,
     14107.640461,
-    14378.671122
+    14501.242312
   ],
   "dailySessions": [
     2,
@@ -405,7 +409,7 @@
     1,
     4,
     1,
-    1
+    2
   ],
   "dailyRequests": [
     57,
@@ -441,7 +445,7 @@
     18,
     66,
     2,
-    34
+    54
   ],
   "dailyInput": [
     114,
@@ -477,7 +481,7 @@
     36,
     132,
     4,
-    68
+    108
   ],
   "dailyOutput": [
     46888,
@@ -513,7 +517,7 @@
     24054,
     118715,
     1400,
-    56776
+    78712
   ],
   "dailyCacheCreate": [
     89279,
@@ -549,7 +553,7 @@
     46171,
     293624,
     19199,
-    96254
+    148608
   ],
   "dailyCacheRead": [
     4074600,
@@ -585,7 +589,7 @@
     928461,
     4032155,
     64454,
-    2900679
+    4288549
   ],
   "models": [
     "<synthetic>",
@@ -595,7 +599,7 @@
   ],
   "modelWh": [
     0.0,
-    13804.733505,
+    13927.304695,
     101.031383,
     472.906234
   ],
@@ -617,7 +621,7 @@
     1854.672375,
     990.931986,
     877.856599,
-    526.225283,
+    648.796473,
     303.00948,
     30.103023
   ],
@@ -628,7 +632,7 @@
     228,
     100,
     156,
-    69,
+    89,
     59,
     6
   ],
@@ -639,27 +643,27 @@
     10,
     2,
     2,
-    7,
+    8,
     3,
     1
   ],
   "comparisons": {
-    "Median AI chat query": 47928.9037,
-    "Google search": 47928.9037,
-    "Streaming 1 hr Netflix": 399.4075,
-    "Dishwasher cycle": 7.9882,
-    "Refrigerator (per day)": 10.4193,
-    "Driving 1 mile (EV)": 47.9289,
-    "Driving to grocery store (5mi)": 2.2121
+    "Median AI chat query": 48337.4744,
+    "Google search": 48337.4744,
+    "Streaming 1 hr Netflix": 402.8123,
+    "Dishwasher cycle": 8.0562,
+    "Refrigerator (per day)": 10.5081,
+    "Driving 1 mile (EV)": 48.3375,
+    "Driving to grocery store (5mi)": 2.231
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 760.7762,
-    "Google search": 760.7762,
-    "Streaming 1 hr Netflix": 6.3398,
-    "Dishwasher cycle": 0.1268,
-    "Refrigerator (per day)": 0.1654,
-    "Driving 1 mile (EV)": 0.7608,
-    "Driving to grocery store (5mi)": 0.0351
+    "Median AI chat query": 755.273,
+    "Google search": 755.273,
+    "Streaming 1 hr Netflix": 6.2939,
+    "Dishwasher cycle": 0.1259,
+    "Refrigerator (per day)": 0.1642,
+    "Driving 1 mile (EV)": 0.7553,
+    "Driving to grocery store (5mi)": 0.0349
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -671,6 +675,15 @@
     "Driving to grocery store (5mi)": 6500
   },
   "last5Sessions": [
+    {
+      "date": "2026-10-19",
+      "project": "biocirv",
+      "duration_min": 35.1,
+      "energy_wh": 122.57,
+      "requests": 20,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.4086
+    },
     {
       "date": "2026-10-19",
       "project": "ai-trans",
@@ -706,15 +719,6 @@
       "requests": 28,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 0.8726
-    },
-    {
-      "date": "2026-10-15",
-      "project": "biocirv",
-      "duration_min": 37.9,
-      "energy_wh": 108.69,
-      "requests": 29,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.3623
     }
   ],
   "rates": {
@@ -723,5 +727,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-10-19 14:34:54"
+  "generatedAt": "2026-10-19 15:13:23"
 }
