@@ -1,11 +1,11 @@
 {
-  "totalWh": 18033.697324,
-  "totalKwh": 18.033697324,
+  "totalWh": 18049.973245,
+  "totalKwh": 18.049973245,
   "totalSessions": 67,
-  "totalRequests": 1967,
-  "totalInputTokens": 3918,
-  "totalOutputTokens": 2799799,
-  "avgWhPerSession": 269.1597,
+  "totalRequests": 1969,
+  "totalInputTokens": 3922,
+  "totalOutputTokens": 2801769,
+  "avgWhPerSession": 269.4026,
   "activeDays": 36,
   "days": [
     "2026-09-04",
@@ -345,7 +345,7 @@
     139.279501,
     17.764177,
     21.502887,
-    166.539964
+    182.815885
   ],
   "dailyWh": [
     294.13217,
@@ -383,7 +383,7 @@
     14.652776,
     1058.581074,
     1722.96632,
-    1144.509469
+    1160.78539
   ],
   "dailyCumulative": [
     294.13217,
@@ -421,7 +421,7 @@
     14107.640461,
     15166.221535,
     16889.187855,
-    18033.697324
+    18049.973245
   ],
   "dailySessions": [
     2,
@@ -497,7 +497,7 @@
     2,
     105,
     146,
-    97
+    99
   ],
   "dailyInput": [
     114,
@@ -535,7 +535,7 @@
     4,
     210,
     292,
-    194
+    198
   ],
   "dailyOutput": [
     46888,
@@ -573,7 +573,7 @@
     1400,
     137009,
     286273,
-    156294
+    158264
   ],
   "dailyCacheCreate": [
     89279,
@@ -611,7 +611,7 @@
     19199,
     538137,
     863750,
-    587233
+    597877
   ],
   "dailyCacheRead": [
     4074600,
@@ -649,7 +649,7 @@
     64454,
     13529346,
     19009810,
-    14151701
+    14336760
   ],
   "models": [
     "<synthetic>",
@@ -659,7 +659,7 @@
   ],
   "modelWh": [
     0.0,
-    17459.759707,
+    17476.035628,
     101.031383,
     472.906234
   ],
@@ -678,7 +678,7 @@
     4278.720258,
     3642.838896,
     3217.562518,
-    2956.777767,
+    2973.053688,
     2020.649597,
     877.856599,
     706.179186,
@@ -689,7 +689,7 @@
     373,
     413,
     283,
-    411,
+    413,
     176,
     156,
     90,
@@ -708,21 +708,21 @@
     1
   ],
   "comparisons": {
-    "Median AI chat query": 60112.3244,
-    "Google search": 60112.3244,
-    "Streaming 1 hr Netflix": 500.936,
-    "Dishwasher cycle": 10.0187,
-    "Refrigerator (per day)": 13.0679,
-    "Driving 1 mile (EV)": 60.1123,
-    "Driving to grocery store (5mi)": 2.7744
+    "Median AI chat query": 60166.5775,
+    "Google search": 60166.5775,
+    "Streaming 1 hr Netflix": 501.3881,
+    "Dishwasher cycle": 10.0278,
+    "Refrigerator (per day)": 13.0797,
+    "Driving 1 mile (EV)": 60.1666,
+    "Driving to grocery store (5mi)": 2.7769
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 897.1989,
-    "Google search": 897.1989,
-    "Streaming 1 hr Netflix": 7.4767,
-    "Dishwasher cycle": 0.1495,
-    "Refrigerator (per day)": 0.195,
-    "Driving 1 mile (EV)": 0.8972,
+    "Median AI chat query": 898.0086,
+    "Google search": 898.0086,
+    "Streaming 1 hr Netflix": 7.4834,
+    "Dishwasher cycle": 0.1497,
+    "Refrigerator (per day)": 0.1952,
+    "Driving 1 mile (EV)": 0.898,
     "Driving to grocery store (5mi)": 0.0414
   },
   "comparisonWh": {
@@ -738,11 +738,20 @@
     {
       "date": "2026-10-02",
       "project": "gen-convo",
-      "duration_min": 28421.8,
-      "energy_wh": 113.0,
-      "requests": 11,
+      "duration_min": 28423.2,
+      "energy_wh": 119.49,
+      "requests": 12,
       "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.3767
+      "equiv_ratio": 0.3983
+    },
+    {
+      "date": "2026-09-16",
+      "project": "gen-convo",
+      "duration_min": 51445.1,
+      "energy_wh": 260.38,
+      "requests": 19,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.8679
     },
     {
       "date": "2026-09-16",
@@ -752,15 +761,6 @@
       "requests": 15,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 0.6877
-    },
-    {
-      "date": "2026-09-16",
-      "project": "gen-convo",
-      "duration_min": 51444.4,
-      "energy_wh": 250.59,
-      "requests": 18,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.8353
     },
     {
       "date": "2026-10-19",
@@ -787,5 +787,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-10-21 17:05:17"
+  "generatedAt": "2026-10-21 17:06:15"
 }
