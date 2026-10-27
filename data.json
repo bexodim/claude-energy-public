@@ -1,11 +1,11 @@
 {
-  "totalWh": 14275.229419,
-  "totalKwh": 14.275229419,
-  "totalSessions": 46,
-  "totalRequests": 1377,
-  "totalInputTokens": 2742,
-  "totalOutputTokens": 2203658,
-  "avgWhPerSession": 310.3311,
+  "totalWh": 14313.806584,
+  "totalKwh": 14.313806584,
+  "totalSessions": 47,
+  "totalRequests": 1386,
+  "totalInputTokens": 2760,
+  "totalOutputTokens": 2208717,
+  "avgWhPerSession": 304.5491,
   "activeDays": 30,
   "days": [
     "2026-09-16",
@@ -279,7 +279,7 @@
     308.562748,
     32.482226,
     173.474154,
-    31.438124
+    70.015289
   ],
   "dailyWh": [
     306.677026,
@@ -311,7 +311,7 @@
     514.720529,
     1076.512225,
     205.95638,
-    31.438124
+    70.015289
   ],
   "dailyCumulative": [
     306.677026,
@@ -343,7 +343,7 @@
     12961.32269,
     14037.834915,
     14243.791295,
-    14275.229419
+    14313.806584
   ],
   "dailySessions": [
     3,
@@ -375,7 +375,7 @@
     5,
     3,
     1,
-    1
+    2
   ],
   "dailyRequests": [
     29,
@@ -407,7 +407,7 @@
     76,
     76,
     18,
-    6
+    15
   ],
   "dailyInput": [
     56,
@@ -439,7 +439,7 @@
     152,
     152,
     36,
-    12
+    30
   ],
   "dailyOutput": [
     89720,
@@ -471,7 +471,7 @@
     95408,
     148938,
     56025,
-    4962
+    10021
   ],
   "dailyCacheCreate": [
     146437,
@@ -503,7 +503,7 @@
     258122,
     667681,
     86429,
-    24371
+    50666
   ],
   "dailyCacheRead": [
     1537104,
@@ -535,7 +535,7 @@
     5182971,
     11765645,
     1393420,
-    251686
+    657341
   ],
   "models": [
     "<synthetic>",
@@ -543,7 +543,7 @@
   ],
   "modelWh": [
     0.0,
-    14275.229419
+    14313.806584
   ],
   "projects": [
     "bexodim",
@@ -559,7 +559,7 @@
     2125.440972,
     2104.777318,
     1300.748272,
-    821.45324
+    860.030405
   ],
   "projectRequests": [
     478,
@@ -567,7 +567,7 @@
     255,
     166,
     110,
-    113
+    122
   ],
   "projectSessions": [
     14,
@@ -575,25 +575,25 @@
     15,
     2,
     2,
-    8
+    9
   ],
   "comparisons": {
-    "Median AI chat query": 47584.0981,
-    "Google search": 47584.0981,
-    "Streaming 1 hr Netflix": 396.5342,
-    "Dishwasher cycle": 7.9307,
-    "Refrigerator (per day)": 10.3444,
-    "Driving 1 mile (EV)": 47.5841,
-    "Driving to grocery store (5mi)": 2.1962
+    "Median AI chat query": 47712.6886,
+    "Google search": 47712.6886,
+    "Streaming 1 hr Netflix": 397.6057,
+    "Dishwasher cycle": 7.9521,
+    "Refrigerator (per day)": 10.3723,
+    "Driving 1 mile (EV)": 47.7127,
+    "Driving to grocery store (5mi)": 2.2021
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 1034.4369,
-    "Google search": 1034.4369,
-    "Streaming 1 hr Netflix": 8.6203,
-    "Dishwasher cycle": 0.1724,
-    "Refrigerator (per day)": 0.2249,
-    "Driving 1 mile (EV)": 1.0344,
-    "Driving to grocery store (5mi)": 0.0477
+    "Median AI chat query": 1015.1636,
+    "Google search": 1015.1636,
+    "Streaming 1 hr Netflix": 8.4597,
+    "Dishwasher cycle": 0.1692,
+    "Refrigerator (per day)": 0.2207,
+    "Driving 1 mile (EV)": 1.0152,
+    "Driving to grocery store (5mi)": 0.0469
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -605,6 +605,15 @@
     "Driving to grocery store (5mi)": 6500
   },
   "last5Sessions": [
+    {
+      "date": "2026-10-27",
+      "project": "biocirv",
+      "duration_min": 5.1,
+      "energy_wh": 38.58,
+      "requests": 9,
+      "equiv_label": "Streaming 1 hr Netflix",
+      "equiv_ratio": 1.0716
+    },
     {
       "date": "2026-10-27",
       "project": "biocirv",
@@ -640,15 +649,6 @@
       "requests": 165,
       "equiv_label": "Dishwasher cycle",
       "equiv_ratio": 0.9317
-    },
-    {
-      "date": "2026-10-22",
-      "project": "bexodim",
-      "duration_min": 444.0,
-      "energy_wh": 431.93,
-      "requests": 33,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 1.4398
     }
   ],
   "rates": {
@@ -657,5 +657,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-10-27 11:10:10"
+  "generatedAt": "2026-10-27 11:45:17"
 }
