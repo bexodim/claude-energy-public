@@ -1,11 +1,11 @@
 {
-  "totalWh": 18023.011192,
-  "totalKwh": 18.023011192,
-  "totalSessions": 61,
-  "totalRequests": 1692,
-  "totalInputTokens": 3370,
-  "totalOutputTokens": 2779824,
-  "avgWhPerSession": 295.4592,
+  "totalWh": 18398.610176,
+  "totalKwh": 18.398610176,
+  "totalSessions": 63,
+  "totalRequests": 1741,
+  "totalInputTokens": 3466,
+  "totalOutputTokens": 2848494,
+  "avgWhPerSession": 292.0414,
   "activeDays": 35,
   "days": [
     "2026-09-16",
@@ -185,7 +185,11 @@
     "2026-11-05T19",
     "2026-11-05T20",
     "2026-11-06T16",
-    "2026-11-06T17"
+    "2026-11-06T17",
+    "2026-11-06T18",
+    "2026-11-06T19",
+    "2026-11-06T20",
+    "2026-11-06T21"
   ],
   "hourlyWh": [
     117.921283,
@@ -328,7 +332,11 @@
     55.126623,
     165.848952,
     114.79705,
-    24.583285
+    54.375021,
+    32.661817,
+    246.874851,
+    14.76202,
+    51.50856
   ],
   "dailyWh": [
     306.677026,
@@ -365,7 +373,7 @@
     596.710655,
     977.262721,
     384.422009,
-    139.380335
+    514.979319
   ],
   "dailyCumulative": [
     306.677026,
@@ -402,7 +410,7 @@
     16521.946127,
     17499.208848,
     17883.630857,
-    18023.011192
+    18398.610176
   ],
   "dailySessions": [
     3,
@@ -439,7 +447,7 @@
     3,
     5,
     3,
-    3
+    5
   ],
   "dailyRequests": [
     29,
@@ -476,7 +484,7 @@
     82,
     78,
     29,
-    20
+    69
   ],
   "dailyInput": [
     56,
@@ -513,7 +521,7 @@
     164,
     156,
     56,
-    40
+    136
   ],
   "dailyOutput": [
     89720,
@@ -550,7 +558,7 @@
     98512,
     172443,
     61649,
-    30096
+    98766
   ],
   "dailyCacheCreate": [
     146437,
@@ -587,7 +595,7 @@
     402023,
     643219,
     348209,
-    87551
+    295182
   ],
   "dailyCacheRead": [
     1537104,
@@ -624,7 +632,7 @@
     5321975,
     8352839,
     2399031,
-    968655
+    4556241
   ],
   "models": [
     "<synthetic>",
@@ -634,7 +642,7 @@
   "modelWh": [
     0.0,
     133.241545,
-    17889.769647
+    18265.368631
   ],
   "projects": [
     "bexodim",
@@ -647,44 +655,44 @@
   "projectWh": [
     6417.247593,
     4430.506844,
-    2244.157653,
-    1755.106524,
+    2427.703066,
+    1790.161297,
     1695.115113,
-    1480.877465
+    1637.876263
   ],
   "projectRequests": [
     646,
     442,
-    186,
-    108,
+    206,
+    114,
     175,
-    135
+    158
   ],
   "projectSessions": [
     20,
     18,
     5,
-    4,
+    5,
     11,
-    3
+    4
   ],
   "comparisons": {
-    "Median AI chat query": 60076.704,
-    "Google search": 60076.704,
-    "Streaming 1 hr Netflix": 500.6392,
-    "Dishwasher cycle": 10.0128,
-    "Refrigerator (per day)": 13.0602,
-    "Driving 1 mile (EV)": 60.0767,
-    "Driving to grocery store (5mi)": 2.7728
+    "Median AI chat query": 61328.7006,
+    "Google search": 61328.7006,
+    "Streaming 1 hr Netflix": 511.0725,
+    "Dishwasher cycle": 10.2215,
+    "Refrigerator (per day)": 13.3323,
+    "Driving 1 mile (EV)": 61.3287,
+    "Driving to grocery store (5mi)": 2.8306
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 984.864,
-    "Google search": 984.864,
-    "Streaming 1 hr Netflix": 8.2072,
-    "Dishwasher cycle": 0.1641,
-    "Refrigerator (per day)": 0.2141,
-    "Driving 1 mile (EV)": 0.9849,
-    "Driving to grocery store (5mi)": 0.0455
+    "Median AI chat query": 973.4714,
+    "Google search": 973.4714,
+    "Streaming 1 hr Netflix": 8.1123,
+    "Dishwasher cycle": 0.1622,
+    "Refrigerator (per day)": 0.2116,
+    "Driving 1 mile (EV)": 0.9735,
+    "Driving to grocery store (5mi)": 0.0449
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -698,12 +706,30 @@
   "last5Sessions": [
     {
       "date": "2026-11-06",
-      "project": "everyseed",
-      "duration_min": 39.9,
-      "energy_wh": 40.59,
-      "requests": 8,
+      "project": "htgaa",
+      "duration_min": 7.3,
+      "energy_wh": 35.05,
+      "requests": 6,
       "equiv_label": "Streaming 1 hr Netflix",
-      "equiv_ratio": 1.1275
+      "equiv_ratio": 0.9737
+    },
+    {
+      "date": "2026-11-06",
+      "project": "everyseed",
+      "duration_min": 277.8,
+      "energy_wh": 224.14,
+      "requests": 28,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.7471
+    },
+    {
+      "date": "2026-11-06",
+      "project": "ai-trans",
+      "duration_min": 36.3,
+      "energy_wh": 157.0,
+      "requests": 23,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.5233
     },
     {
       "date": "2026-11-06",
@@ -722,24 +748,6 @@
       "requests": 1,
       "equiv_label": "Streaming 1 hr Netflix",
       "equiv_ratio": 0.2419
-    },
-    {
-      "date": "2026-10-21",
-      "project": "bexodim",
-      "duration_min": 21572.3,
-      "energy_wh": 88.99,
-      "requests": 13,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.2966
-    },
-    {
-      "date": "2026-10-15",
-      "project": "biocirv",
-      "duration_min": 30538.8,
-      "energy_wh": 1069.83,
-      "requests": 62,
-      "equiv_label": "Refrigerator (per day)",
-      "equiv_ratio": 0.7752
     }
   ],
   "rates": {
@@ -748,5 +756,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-11-06 12:11:06"
+  "generatedAt": "2026-11-06 16:42:57"
 }
