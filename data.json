@@ -1,11 +1,11 @@
 {
-  "totalWh": 18954.261623,
-  "totalKwh": 18.954261623,
+  "totalWh": 19020.956114,
+  "totalKwh": 19.020956114,
   "totalSessions": 64,
-  "totalRequests": 1803,
-  "totalInputTokens": 3588,
-  "totalOutputTokens": 2926264,
-  "avgWhPerSession": 296.1603,
+  "totalRequests": 1806,
+  "totalInputTokens": 3594,
+  "totalOutputTokens": 2926780,
+  "avgWhPerSession": 297.2024,
   "activeDays": 36,
   "days": [
     "2026-09-16",
@@ -347,7 +347,7 @@
     31.111166,
     144.799534,
     120.098186,
-    43.768407
+    110.462898
   ],
   "dailyWh": [
     306.677026,
@@ -385,7 +385,7 @@
     977.262721,
     384.422009,
     761.964639,
-    308.666127
+    375.360618
   ],
   "dailyCumulative": [
     306.677026,
@@ -423,7 +423,7 @@
     17499.208848,
     17883.630857,
     18645.595496,
-    18954.261623
+    19020.956114
   ],
   "dailySessions": [
     3,
@@ -461,7 +461,7 @@
     5,
     3,
     6,
-    2
+    3
   ],
   "dailyRequests": [
     29,
@@ -499,7 +499,7 @@
     78,
     29,
     111,
-    20
+    23
   ],
   "dailyInput": [
     56,
@@ -537,7 +537,7 @@
     156,
     56,
     220,
-    38
+    44
   ],
   "dailyOutput": [
     89720,
@@ -575,7 +575,7 @@
     172443,
     61649,
     147074,
-    29462
+    29978
   ],
   "dailyCacheCreate": [
     146437,
@@ -613,7 +613,7 @@
     643219,
     348209,
     377736,
-    336735
+    447240
   ],
   "dailyCacheRead": [
     1537104,
@@ -651,7 +651,7 @@
     8352839,
     2399031,
     7435741,
-    2210263
+    2506122
   ],
   "models": [
     "<synthetic>",
@@ -661,7 +661,7 @@
   "modelWh": [
     0.0,
     133.241545,
-    18821.020078
+    18887.714569
   ],
   "projects": [
     "bexodim",
@@ -672,7 +672,7 @@
     "ai-trans"
   ],
   "projectWh": [
-    6417.247593,
+    6483.942084,
     4942.389884,
     2471.471473,
     1790.161297,
@@ -680,7 +680,7 @@
     1637.876263
   ],
   "projectRequests": [
-    646,
+    649,
     502,
     208,
     114,
@@ -696,22 +696,22 @@
     4
   ],
   "comparisons": {
-    "Median AI chat query": 63180.8721,
-    "Google search": 63180.8721,
-    "Streaming 1 hr Netflix": 526.5073,
-    "Dishwasher cycle": 10.5301,
-    "Refrigerator (per day)": 13.735,
-    "Driving 1 mile (EV)": 63.1809,
-    "Driving to grocery store (5mi)": 2.916
+    "Median AI chat query": 63403.187,
+    "Google search": 63403.187,
+    "Streaming 1 hr Netflix": 528.3599,
+    "Dishwasher cycle": 10.5672,
+    "Refrigerator (per day)": 13.7833,
+    "Driving 1 mile (EV)": 63.4032,
+    "Driving to grocery store (5mi)": 2.9263
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 987.2011,
-    "Google search": 987.2011,
-    "Streaming 1 hr Netflix": 8.2267,
-    "Dishwasher cycle": 0.1645,
-    "Refrigerator (per day)": 0.2146,
-    "Driving 1 mile (EV)": 0.9872,
-    "Driving to grocery store (5mi)": 0.0456
+    "Median AI chat query": 990.6748,
+    "Google search": 990.6748,
+    "Streaming 1 hr Netflix": 8.2556,
+    "Dishwasher cycle": 0.1651,
+    "Refrigerator (per day)": 0.2154,
+    "Driving 1 mile (EV)": 0.9907,
+    "Driving to grocery store (5mi)": 0.0457
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -723,6 +723,15 @@
     "Driving to grocery store (5mi)": 6500
   },
   "last5Sessions": [
+    {
+      "date": "2026-11-03",
+      "project": "bexodim",
+      "duration_min": 5434.6,
+      "energy_wh": 397.25,
+      "requests": 43,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 1.3242
+    },
     {
       "date": "2026-11-06",
       "project": "everyseed",
@@ -758,15 +767,6 @@
       "requests": 23,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 0.5233
-    },
-    {
-      "date": "2026-11-06",
-      "project": "everyseed",
-      "duration_min": 54.9,
-      "energy_wh": 90.08,
-      "requests": 11,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.3003
     }
   ],
   "rates": {
@@ -775,5 +775,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-11-07 10:05:51"
+  "generatedAt": "2026-11-07 10:07:24"
 }
