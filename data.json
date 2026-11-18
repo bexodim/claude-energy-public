@@ -1,11 +1,11 @@
 {
-  "totalWh": 22783.122419,
-  "totalKwh": 22.783122419,
+  "totalWh": 22886.149848,
+  "totalKwh": 22.886149848,
   "totalSessions": 73,
-  "totalRequests": 2135,
-  "totalInputTokens": 4252,
-  "totalOutputTokens": 3542868,
-  "avgWhPerSession": 312.0976,
+  "totalRequests": 2154,
+  "totalInputTokens": 4290,
+  "totalOutputTokens": 3556976,
+  "avgWhPerSession": 313.5089,
   "activeDays": 40,
   "days": [
     "2026-09-16",
@@ -395,7 +395,7 @@
     322.884379,
     121.282915,
     16.177855,
-    386.820894
+    489.848323
   ],
   "dailyWh": [
     306.677026,
@@ -437,7 +437,7 @@
     116.603827,
     639.998487,
     813.745168,
-    879.647095
+    982.674524
   ],
   "dailyCumulative": [
     306.677026,
@@ -479,7 +479,7 @@
     20449.731669,
     21089.730156,
     21903.475324,
-    22783.122419
+    22886.149848
   ],
   "dailySessions": [
     3,
@@ -563,7 +563,7 @@
     10,
     76,
     115,
-    107
+    126
   ],
   "dailyInput": [
     56,
@@ -605,7 +605,7 @@
     20,
     152,
     230,
-    214
+    252
   ],
   "dailyOutput": [
     89720,
@@ -647,7 +647,7 @@
     11311,
     120060,
     120935,
-    146754
+    160862
   ],
   "dailyCacheCreate": [
     146437,
@@ -689,7 +689,7 @@
     117097,
     333054,
     237841,
-    462169
+    483860
   ],
   "dailyCacheRead": [
     1537104,
@@ -731,7 +731,7 @@
     952873,
     6221173,
     11827952,
-    9408475
+    11071896
   ],
   "models": [
     "<synthetic>",
@@ -741,7 +741,7 @@
   "modelWh": [
     0.0,
     392.758734,
-    22390.363685
+    22493.391114
   ],
   "projects": [
     "bexodim",
@@ -752,7 +752,7 @@
     "ai-trans"
   ],
   "projectWh": [
-    8140.644662,
+    8243.672091,
     6866.64245,
     2271.296008,
     1992.310314,
@@ -760,7 +760,7 @@
     1742.564456
   ],
   "projectRequests": [
-    840,
+    859,
     632,
     221,
     162,
@@ -776,22 +776,22 @@
     7
   ],
   "comparisons": {
-    "Median AI chat query": 75943.7414,
-    "Google search": 75943.7414,
-    "Streaming 1 hr Netflix": 632.8645,
-    "Dishwasher cycle": 12.6573,
-    "Refrigerator (per day)": 16.5095,
-    "Driving 1 mile (EV)": 75.9437,
-    "Driving to grocery store (5mi)": 3.5051
+    "Median AI chat query": 76287.1662,
+    "Google search": 76287.1662,
+    "Streaming 1 hr Netflix": 635.7264,
+    "Dishwasher cycle": 12.7145,
+    "Refrigerator (per day)": 16.5842,
+    "Driving 1 mile (EV)": 76.2872,
+    "Driving to grocery store (5mi)": 3.5209
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 1040.3252,
-    "Google search": 1040.3252,
-    "Streaming 1 hr Netflix": 8.6694,
-    "Dishwasher cycle": 0.1734,
-    "Refrigerator (per day)": 0.2262,
-    "Driving 1 mile (EV)": 1.0403,
-    "Driving to grocery store (5mi)": 0.048
+    "Median AI chat query": 1045.0297,
+    "Google search": 1045.0297,
+    "Streaming 1 hr Netflix": 8.7086,
+    "Dishwasher cycle": 0.1742,
+    "Refrigerator (per day)": 0.2272,
+    "Driving 1 mile (EV)": 1.045,
+    "Driving to grocery store (5mi)": 0.0482
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -806,29 +806,29 @@
     {
       "date": "2026-11-18",
       "project": "bexodim",
+      "duration_min": 839.7,
+      "energy_wh": 657.53,
+      "requests": 81,
+      "equiv_label": "Refrigerator (per day)",
+      "equiv_ratio": 0.4765
+    },
+    {
+      "date": "2026-11-18",
+      "project": "bexodim",
+      "duration_min": 44.2,
+      "energy_wh": 163.1,
+      "requests": 20,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.5437
+    },
+    {
+      "date": "2026-11-18",
+      "project": "bexodim",
       "duration_min": 33.9,
       "energy_wh": 76.74,
       "requests": 15,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 0.2558
-    },
-    {
-      "date": "2026-11-18",
-      "project": "bexodim",
-      "duration_min": 827.6,
-      "energy_wh": 579.93,
-      "requests": 65,
-      "equiv_label": "Refrigerator (per day)",
-      "equiv_ratio": 0.4202
-    },
-    {
-      "date": "2026-11-18",
-      "project": "bexodim",
-      "duration_min": 37.4,
-      "energy_wh": 137.68,
-      "requests": 17,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.4589
     },
     {
       "date": "2026-11-18",
@@ -855,5 +855,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-11-18 13:45:11"
+  "generatedAt": "2026-11-18 13:57:14"
 }
