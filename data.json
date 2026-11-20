@@ -1,11 +1,11 @@
 {
-  "totalWh": 27026.970774,
-  "totalKwh": 27.026970774,
+  "totalWh": 27165.243043,
+  "totalKwh": 27.165243043,
   "totalSessions": 73,
-  "totalRequests": 2501,
-  "totalInputTokens": 4984,
-  "totalOutputTokens": 4024628,
-  "avgWhPerSession": 370.2325,
+  "totalRequests": 2512,
+  "totalInputTokens": 5006,
+  "totalOutputTokens": 4047108,
+  "avgWhPerSession": 372.1266,
   "activeDays": 42,
   "days": [
     "2026-09-16",
@@ -228,7 +228,8 @@
     "2026-11-19T23",
     "2026-11-20T01",
     "2026-11-20T02",
-    "2026-11-20T03"
+    "2026-11-20T03",
+    "2026-11-20T04"
   ],
   "hourlyWh": [
     117.921283,
@@ -407,7 +408,8 @@
     163.844847,
     283.34665,
     64.494912,
-    94.874975
+    94.874975,
+    138.272269
   ],
   "dailyWh": [
     306.677026,
@@ -451,7 +453,7 @@
     813.745168,
     2860.393488,
     2581.274237,
-    442.716537
+    580.988806
   ],
   "dailyCumulative": [
     306.677026,
@@ -495,7 +497,7 @@
     21142.586512,
     24002.98,
     26584.254237,
-    27026.970774
+    27165.243043
   ],
   "dailySessions": [
     3,
@@ -583,7 +585,7 @@
     115,
     337,
     184,
-    44
+    55
   ],
   "dailyInput": [
     56,
@@ -627,7 +629,7 @@
     230,
     674,
     368,
-    88
+    110
   ],
   "dailyOutput": [
     89720,
@@ -671,7 +673,7 @@
     120935,
     364881,
     371907,
-    40692
+    63172
   ],
   "dailyCacheCreate": [
     146437,
@@ -715,7 +717,7 @@
     237841,
     933360,
     1401401,
-    552249
+    686671
   ],
   "dailyCacheRead": [
     1537104,
@@ -759,7 +761,7 @@
     11827952,
     43365802,
     29980143,
-    2377713
+    3110044
   ],
   "models": [
     "<synthetic>",
@@ -769,7 +771,7 @@
   "modelWh": [
     0.0,
     963.343056,
-    26063.627718
+    26201.899987
   ],
   "projects": [
     "bexodim",
@@ -780,16 +782,16 @@
     "ai-trans"
   ],
   "projectWh": [
-    12807.103992,
-    7053.612465,
+    12850.178211,
+    7148.810515,
     2148.724818,
     1992.310314,
     1769.664529,
     1255.554656
   ],
   "projectRequests": [
-    1260,
-    647,
+    1265,
+    653,
     201,
     162,
     110,
@@ -804,22 +806,22 @@
     6
   ],
   "comparisons": {
-    "Median AI chat query": 90089.9026,
-    "Google search": 90089.9026,
-    "Streaming 1 hr Netflix": 750.7492,
-    "Dishwasher cycle": 15.015,
-    "Refrigerator (per day)": 19.5848,
-    "Driving 1 mile (EV)": 90.0899,
-    "Driving to grocery store (5mi)": 4.158
+    "Median AI chat query": 90550.8101,
+    "Google search": 90550.8101,
+    "Streaming 1 hr Netflix": 754.5901,
+    "Dishwasher cycle": 15.0918,
+    "Refrigerator (per day)": 19.685,
+    "Driving 1 mile (EV)": 90.5508,
+    "Driving to grocery store (5mi)": 4.1793
   },
   "comparisonsPerSession": {
-    "Median AI chat query": 1234.1083,
-    "Google search": 1234.1083,
-    "Streaming 1 hr Netflix": 10.2842,
-    "Dishwasher cycle": 0.2057,
-    "Refrigerator (per day)": 0.2683,
-    "Driving 1 mile (EV)": 1.2341,
-    "Driving to grocery store (5mi)": 0.057
+    "Median AI chat query": 1240.4221,
+    "Google search": 1240.4221,
+    "Streaming 1 hr Netflix": 10.3369,
+    "Dishwasher cycle": 0.2067,
+    "Refrigerator (per day)": 0.2697,
+    "Driving 1 mile (EV)": 1.2404,
+    "Driving to grocery store (5mi)": 0.0573
   },
   "comparisonWh": {
     "Median AI chat query": 0.3,
@@ -832,6 +834,24 @@
   },
   "last5Sessions": [
     {
+      "date": "2026-11-19",
+      "project": "bexodim",
+      "duration_min": 463.0,
+      "energy_wh": 1918.53,
+      "requests": 118,
+      "equiv_label": "Dishwasher cycle",
+      "equiv_ratio": 1.0659
+    },
+    {
+      "date": "2026-11-20",
+      "project": "gen-convo",
+      "duration_min": 206.1,
+      "energy_wh": 174.71,
+      "requests": 14,
+      "equiv_label": "Driving 1 mile (EV)",
+      "equiv_ratio": 0.5824
+    },
+    {
       "date": "2026-11-20",
       "project": "bexodim",
       "duration_min": 74.7,
@@ -839,24 +859,6 @@
       "requests": 35,
       "equiv_label": "Driving 1 mile (EV)",
       "equiv_ratio": 0.5312
-    },
-    {
-      "date": "2026-11-20",
-      "project": "gen-convo",
-      "duration_min": 9.1,
-      "energy_wh": 79.52,
-      "requests": 8,
-      "equiv_label": "Driving 1 mile (EV)",
-      "equiv_ratio": 0.2651
-    },
-    {
-      "date": "2026-11-19",
-      "project": "bexodim",
-      "duration_min": 255.1,
-      "energy_wh": 1875.46,
-      "requests": 113,
-      "equiv_label": "Dishwasher cycle",
-      "equiv_ratio": 1.0419
     },
     {
       "date": "2026-11-18",
@@ -883,5 +885,5 @@
     "cache_create": 490,
     "cache_read": 39
   },
-  "generatedAt": "2026-11-19 23:25:22"
+  "generatedAt": "2026-11-19 23:32:52"
 }
